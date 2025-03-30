@@ -14,38 +14,42 @@ import {
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(User) private readonly userRepository: Repository<User>
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
-         console.log('Post req dto: ', createUserDto);
-         const user = this.userRepository.create(createUserDto);
-         return await this.userRepository.save(user);
+      console.log("Post req dto: ", createUserDto);
+      const user = this.userRepository.create(createUserDto);
+      return await this.userRepository.save(user);
     } catch (error) {
-      if (error.code === '23505') {
+      if (error.code === "23505") {
         // PostgreSQL код ошибки для нарушения уникальности
-        throw new ConflictException('Username or email already exists');
+        throw new ConflictException("Username or email already exists");
       } else {
         // Логируем другие ошибки
-        console.error('Error creating user: ', error);
-        throw new InternalServerErrorException('Something went wrong');
+        console.error("Error creating user: ", error);
+        throw new InternalServerErrorException("Something went wrong");
       }
     }
- 
   }
 
   async findAll(role?: Role): Promise<User[]> {
-    console.log('Get all users:', role);
+    console.log("Get all users:", role);
     if (role) {
-      return (await this.userRepository.find({ where: { role: role } }));
+      return await this.userRepository.find({ where: { role: role } });
     }
-    return (await this.userRepository.find());
+    return await this.userRepository.find();
   }
 
-  findOne(id: string) :Promise<User> {
-  return this.userRepository.findOne({ where: { id } });
+  findOne(id: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ where: { id:id } });
   }
+
+  findOneByEmail(email: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ where: { email:email } });
+  }
+
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     let user: User = await this.userRepository.findOne({ where: { id } });

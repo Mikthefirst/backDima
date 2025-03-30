@@ -6,6 +6,7 @@ import { Room } from './room/entities/room.entity';
 import { RoomModule } from './room/room.module';
 import { AssetsModule } from './assets/assets.module';
 import { Asset } from './assets/entities/asset.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { Asset } from './assets/entities/asset.entity';
       synchronize: true,
       logging: true,
     }),
-    UserModule, RoomModule, AssetsModule
+    UserModule, RoomModule, AssetsModule, AuthModule
   ],
   controllers: [],
   providers: [],
