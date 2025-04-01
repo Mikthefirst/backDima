@@ -7,21 +7,29 @@ import { RoomModule } from './room/room.module';
 import { AssetsModule } from './assets/assets.module';
 import { Asset } from './assets/entities/asset.entity';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
+      type: "postgres",
+      host: "localhost",
       port: 5432,
-      password: '246753981',
-      username: 'postgres',
+      password: "246753981",
+      username: "postgres",
       entities: [User, Room, Asset],
-      database: 'dima-diplom',
+      database: "dima-diplom",
       synchronize: true,
       logging: true,
     }),
-    UserModule, RoomModule, AssetsModule, AuthModule
+    ConfigModule.forRoot({
+      isGlobal: true, // makes ConfigService available globally
+      envFilePath: ".env", // explicitly specify the path
+    }),
+    UserModule,
+    RoomModule,
+    AssetsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
