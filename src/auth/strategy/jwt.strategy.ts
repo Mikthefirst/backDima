@@ -8,7 +8,12 @@ import { IUser } from 'src/types/types';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly configService: ConfigService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest:  ExtractJwt.fromExtractors([
+        (request) => {
+          return request?.cookies?.access_token || 
+                 request?.headers?.authorization?.split(' ')[1];
+        }
+      ]),
       ignoreExpiration: false,
       secretOrKey: configService.get("JWT_SECRET"),
     });

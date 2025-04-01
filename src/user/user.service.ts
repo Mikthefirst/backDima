@@ -34,22 +34,26 @@ export class UserService {
     }
   }
 
-  async findAll(role?: Role): Promise<User[]> {
+  async findAll(role?: Role): Promise<Omit<User, "password">[] | undefined> {
     console.log("Get all users:", role);
-    if (role) {
-      return await this.userRepository.find({ where: { role: role } });
-    }
-    return await this.userRepository.find();
+    
+     const users = role
+       ? await this.userRepository.find({ where: { role } })
+       : await this.userRepository.find();
+
+     return users.map((user) => {
+       const { password, ...userWithoutPassword } = user;
+       return userWithoutPassword as Omit<User, "password">;
+     });
   }
 
   findOne(id: string): Promise<User | undefined> {
-    return this.userRepository.findOne({ where: { id:id } });
+    return this.userRepository.findOne({ where: { id: id } });
   }
 
   findOneByEmail(email: string): Promise<User | undefined> {
-    return this.userRepository.findOne({ where: { email:email } });
+    return this.userRepository.findOne({ where: { email: email } });
   }
-
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     let user: User = await this.userRepository.findOne({ where: { id } });
