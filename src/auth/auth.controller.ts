@@ -25,7 +25,7 @@ export class AuthController {
     res.cookie("id", logindata.id);
     res.cookie("email", logindata.email);
 
-    return { message: "Login successful" };
+    return { message: "Login successful", token:logindata.access_token };
 
   }
 

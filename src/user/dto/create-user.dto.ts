@@ -16,19 +16,19 @@ const passwordRegEx =
 
 export class CreateUserDto {
   @IsString()
-  @MinLength(2, { message: 'Name must have atleast 2 characters.' })
+  @MinLength(2, { message: "Name must have atleast 2 characters." })
   @IsNotEmpty()
   username: string;
 
   @IsNotEmpty()
-  @MinLength(3, { message: 'Username must have atleast 3 characters.' })
+  @MinLength(3, { message: "Username must have atleast 3 characters." })
   @IsAlphanumeric(null, {
-    message: 'Username does not allow other than alpha numeric chars.',
+    message: "Username does not allow other than alpha numeric chars.",
   })
   full_name: string;
 
   @IsNotEmpty()
-  @IsEmail(null, { message: 'Please provide valid Email.' })
+  @IsEmail(null, { message: "Please provide valid Email." })
   email: string;
 
   @IsNotEmpty()
@@ -43,6 +43,9 @@ export class CreateUserDto {
 
   @IsEnum(Role)
   role: Role;
+
+  @IsOptional()
+  avatar: string;
 
   @IsInt()
   @IsOptional()

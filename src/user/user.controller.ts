@@ -9,6 +9,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,6 +19,9 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 import { BadRequestException } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from "src/auth/guards/role.guard";
+import { Observable } from 'rxjs';
+import { FileInterceptor } from '@nestjs/platform-express';
+
 
 @Controller("user")
 export class UserController {
@@ -56,4 +60,5 @@ export class UserController {
   remove(@Param("id") id: string) {
     return this.userService.remove(id);
   }
+
 }

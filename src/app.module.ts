@@ -8,6 +8,7 @@ import { AssetsModule } from './assets/assets.module';
 import { Asset } from './assets/entities/asset.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { ImageServiceModule } from './image-service/image-service.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ConfigModule } from '@nestjs/config';
     RoomModule,
     AssetsModule,
     AuthModule,
+    ImageServiceModule,
   ],
   controllers: [],
   providers: [],
