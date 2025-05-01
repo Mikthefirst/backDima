@@ -1,0 +1,65 @@
+@assets = assets
+@reqpath = http://localhost:3000
+###
+# @name CreateAsset1
+POST {{reqpath}}/assets/
+Content-Type: application/json
+
+{
+  "name": "Projector",
+  "room_id": "49d3f0c0-6ed5-4d6f-9877-475ec0366c03",
+  "responsiblePerson": "Ivan Petrov",
+  "depreciation": 1200.50,
+  "acquisitionDate": "2022-09-15"
+}
+
+###
+# @name CreateAsset2
+POST {{reqpath}}/assets/
+Content-Type: application/json
+
+{
+  "name": "Whiteboard",
+  "room_id": "49d3f0c0-6ed5-4d6f-9877-475ec0366c03",
+  "responsiblePerson": "Ivan Petrov",
+  "depreciation": 300.00,
+  "acquisitionDate": "2023-01-10"
+}
+
+###
+# @name CreateAsset3
+POST {{reqpath}}/assets/
+Content-Type: application/json
+
+{
+  "name": "Desktop Computer",
+  "room_id": "665a3ad6-7415-4a54-91a6-1679cafee0f5",
+  "responsiblePerson": "Anna Sidorova",
+  "depreciation": 2000.00,
+  "acquisitionDate": "2021-12-01"
+}
+
+###
+# @name CreateAsset4
+POST {{reqpath}}/assets/
+Content-Type: application/json
+
+{
+  "name": "3D Printer",
+  "room_id": "665a3ad6-7415-4a54-91a6-1679cafee0f5",
+  "depreciation": 3500.00,
+  "acquisitionDate": "2023-07-20"
+}
+
+###
+# @name CreateAsset5
+POST {{reqpath}}/assets/
+Content-Type: application/json
+
+{
+  "name": "Scanner",
+  "room_id": "49d3f0c0-6ed5-4d6f-9877-475ec0366c03",
+  "responsiblePerson": "Ivan Petrov",
+  "depreciation": 450.00,
+  "acquisitionDate": "2020-05-10"
+}

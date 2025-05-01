@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { RoomService } from './room.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
@@ -7,12 +7,12 @@ import { BadRequestException } from '@nestjs/common';
 
 @Controller('room')
 export class RoomController {
-  constructor(private readonly userService: RoomService) {}
+  constructor(private readonly roomService: RoomService) {}
 
   @Post()
   create(@Body() createRoomDto: CreateRoomDto): Promise<Room> {
     try {
-     return this.userService.create(createRoomDto);
+     return this.roomService.create(createRoomDto);
    } catch (error) {
      if (error instanceof BadRequestException) {
        throw new BadRequestException("Ошибка валидации");
@@ -23,20 +23,22 @@ export class RoomController {
 
   @Get()
   findAll(): Promise<Room[]> {
-    return this.userService.findAll();
+    return this.roomService.findAll();
   }
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<Room> {
-    return this.userService.findOne(id);
+  @Get('roomWithAssets/:id')
+  sendRoomWithAssets(@Param('id') id: string) {
+    const roomsAndassets_json = this.roomService.findRoomWithRelatedAssets(id);
+    console.log(roomsAndassets_json);
+    return roomsAndassets_json;
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRoomDto: UpdateRoomDto) {
-    return this.userService.updateOwner(id, updateRoomDto);
+    return this.roomService.updateOwner(id, updateRoomDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.remove(id);
+    return this.roomService.remove(id);
   }
 }

@@ -1,16 +1,26 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Building } from '../enums/building.enum';
 
-@Entity({ name: 'rooms' })
+@Entity({ name: "rooms" })
 export class Room {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
-  room_number: number;
-
-  @Column()
-  owner_id: string;
+  name: string;
 
   @Column({ nullable: true })
-  building_id: number;
+  owner_id: string;
+
+  @Column({ default: Building.Building1 })
+  building: Building;
+
+  @Column()
+  width: number;
+  @Column()
+  height: number;
+  @Column()
+  x: number;
+  @Column()
+  y: number;
 }

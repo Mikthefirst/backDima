@@ -12,9 +12,9 @@ export class Asset {
   name: string;
 
   @Column()
-  room: string;
+  room_id: string;
 
-  @Column({ name: "MOL", nullable: false })
+  @Column({ name: "MOL", nullable: true })
   responsiblePerson: string; // Материально ответственное лицо
 
   @Column({

@@ -1,16 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from "./dto/update-room.dto";
 import { Room } from './entities/room.entity';
-import {InternalServerErrorException} from '@nestjs/common';
+import { Asset } from 'src/assets/entities/asset.entity';
 
 
 @Injectable()
 export class RoomService {
   constructor(
     @InjectRepository(Room) private readonly roomRepository: Repository<Room>,
+    @InjectRepository(Asset) private readonly assetsRepository: Repository<Asset>
   ) {}
 
   async create(createRoomDto: CreateRoomDto): Promise<Room> {
@@ -30,8 +31,18 @@ export class RoomService {
     return await this.roomRepository.find();
   }
 
-  findOne(id: string) :Promise<Room> {
-  return this.roomRepository.findOne({ where: { id } });
+  async findRoomWithRelatedAssets(id: string){
+    const room:Room = await this.roomRepository.findOne({ where: { id } });
+  
+    if (!room) {
+      throw new NotFoundException("Room not found");
+    }
+
+    const assets = await this.assetsRepository.find({
+      where: { room_id: room.id },
+    });
+
+    return assets;
   }
 
   async updateOwner(id: string, updateRoomDto: UpdateRoomDto) {

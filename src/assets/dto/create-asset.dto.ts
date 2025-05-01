@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, IsDateString } from "class-validator";
+import { IsString, IsNotEmpty, IsNumber, IsDateString, IsOptional } from "class-validator";
 
 export class CreateAssetDto {
   @IsString()
@@ -7,10 +7,10 @@ export class CreateAssetDto {
 
   @IsString()
   @IsNotEmpty()
-  room: string;
+  room_id: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   responsiblePerson: string;
 
   @IsNumber()

@@ -1,9 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { Role } from '../enums/role.enum';
 
-@Entity({ name: 'users' })
+@Entity({ name: "users" })
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column({ unique: true })
@@ -18,11 +24,11 @@ export class User {
   @Column()
   password: string;
 
-  @Column({nullable:  true})
+  @Column({ nullable: true })
   avatar?: string;
-    
+
   @Column({
-    type: 'enum',
+    type: "enum",
     enum: Role,
   })
   role: Role;
@@ -32,6 +38,18 @@ export class User {
 
   @Column({ nullable: true })
   building_id?: number;
+
+  @CreateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: "timestamp",
+    nullable: true,
+  })
+  lastLogin: Date;
 }
 
 //username, email, full_name, password, choose role(Teacher,mol ), and not  nessesary fields as room_id, building_id
