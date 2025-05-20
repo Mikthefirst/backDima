@@ -1,4 +1,10 @@
-import { IsString, IsNotEmpty, IsNumber, IsDateString, IsOptional } from "class-validator";
+import {
+  IsString,
+  IsNotEmpty,
+  IsNumber,
+  IsDateString,
+  IsOptional,
+} from "class-validator";
 
 export class CreateAssetDto {
   @IsString()
@@ -11,11 +17,27 @@ export class CreateAssetDto {
 
   @IsString()
   @IsOptional()
-  responsiblePerson: string;
+  responsiblePerson?: string;
 
   @IsNumber()
   depreciation: number;
 
   @IsDateString()
-  acquisitionDate: Date;
+  acquisitionDate: string; 
+
+  @IsNumber()
+  @IsOptional()
+  x?: number;
+
+  @IsNumber()
+  @IsOptional()
+  y?: number;
+
+  @IsNumber()
+  @IsOptional()
+  width?: number;
+
+  @IsNumber()
+  @IsOptional()
+  height?: number;
 }

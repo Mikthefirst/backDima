@@ -4,12 +4,15 @@ import { PrimaryGeneratedColumn, Column, Entity } from "typeorm";
 export class Asset {
   @PrimaryGeneratedColumn("uuid")
   id: string;
-  
+
   @PrimaryGeneratedColumn("increment")
   inventory_number: number;
 
   @Column()
   name: string;
+
+  @Column({ nullable: true })
+  image_url?: string;
 
   @Column()
   room_id: string;
@@ -32,4 +35,28 @@ export class Asset {
     nullable: false,
   })
   acquisitionDate: Date; // Date of acquisition
+
+  //для комнат
+  @Column({ type: "decimal", precision: 5, scale: 2, default: 0 })
+  x: number;
+
+  @Column({ type: "decimal", precision: 5, scale: 2, default: 0 })
+  y: number;
+
+  @Column({ type: "decimal", precision: 5, scale: 2, default: 0.1 })
+  width: number;
+
+  @Column({ type: "decimal", precision: 5, scale: 2, default: 0.1 })
+  height: number;
 }
+
+/* 
+  @Column()
+  width: number;
+  @Column()
+  height: number;
+  @Column()
+  x: number;
+  @Column()
+  y: number;
+*/

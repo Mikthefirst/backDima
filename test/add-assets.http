@@ -1,0 +1,169 @@
+###
+# @name CreateAsset1
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Projector",
+  "room_id": "633f64f2-4645-4f8d-9c69-e5806ea9936b",
+  "responsiblePerson": "Ivan Petrov",
+  "depreciation": 1200.50,
+  "acquisitionDate": "2022-09-15",
+  "x": 0.2,
+  "y": 0.3,
+  "width": 0.15,
+  "height": 0.1
+}
+
+###
+# @name CreateAsset2
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Whiteboard",
+  "room_id": "633f64f2-4645-4f8d-9c69-e5806ea9936b",
+  "responsiblePerson": "Anna Volkova",
+  "depreciation": 500.00,
+  "acquisitionDate": "2020-11-01",
+  "x": 0.7,
+  "y": 0.1,
+  "width": 0.2,
+  "height": 0.2
+}
+
+###
+# @name CreateAsset3
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "room_id": "633f64f2-4645-4f8d-9c69-e5806ea9936b",
+  "responsiblePerson": "Nikita Ivanov",
+  "depreciation": 1500.00,
+  "acquisitionDate": "2023-06-01",
+  "x": 0.1,
+  "y": 0.6,
+  "width": 0.1,
+  "height": 0.1
+}
+
+###
+# @name CreateAsset4
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Printer",
+  "room_id": "dc3a039b-5604-42db-bdf6-4e90ad88e197",
+  "responsiblePerson": "Elena Smirnova",
+  "depreciation": 900.00,
+  "acquisitionDate": "2021-04-12",
+  "x": 0.5,
+  "y": 0.2,
+  "width": 0.15,
+  "height": 0.1
+}
+
+###
+# @name CreateAsset5
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Monitor",
+  "room_id": "dc3a039b-5604-42db-bdf6-4e90ad88e197",
+  "responsiblePerson": "Igor Denisov",
+  "depreciation": 750.25,
+  "acquisitionDate": "2022-12-25",
+  "x": 0.2,
+  "y": 0.5,
+  "width": 0.1,
+  "height": 0.1
+}
+
+###
+# @name CreateAsset6
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Office Chair",
+  "room_id": "dc3a039b-5604-42db-bdf6-4e90ad88e197",
+  "responsiblePerson": "Tatiana Moroz",
+  "depreciation": 320.00,
+  "acquisitionDate": "2023-02-01",
+  "x": 0.6,
+  "y": 0.7,
+  "width": 0.2,
+  "height": 0.2
+}
+
+###
+# @name CreateAsset7
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Filing Cabinet",
+  "room_id": "d9bd58a7-3f94-4aa6-95e8-ced733594b86",
+  "responsiblePerson": "Oleg Kuznetsov",
+  "depreciation": 850.75,
+  "acquisitionDate": "2023-01-20",
+  "x": 0.05,
+  "y": 0.6,
+  "width": 0.2,
+  "height": 0.3
+}
+
+###
+# @name CreateAsset8
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Scanner",
+  "room_id": "d9bd58a7-3f94-4aa6-95e8-ced733594b86",
+  "responsiblePerson": "Daria Levina",
+  "depreciation": 430.90,
+  "acquisitionDate": "2021-07-10",
+  "x": 0.35,
+  "y": 0.2,
+  "width": 0.15,
+  "height": 0.15
+}
+
+###
+# @name CreateAsset9
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Bookshelf",
+  "room_id": "d9bd58a7-3f94-4aa6-95e8-ced733594b86",
+  "responsiblePerson": "Irina Frolova",
+  "depreciation": 1200.00,
+  "acquisitionDate": "2020-08-05",
+  "x": 0.75,
+  "y": 0.1,
+  "width": 0.2,
+  "height": 0.3
+}
+
+###
+# @name CreateAsset10
+POST http://localhost:3000/assets/
+Content-Type: application/json
+
+{
+  "name": "Server Rack",
+  "room_id": "633f64f2-4645-4f8d-9c69-e5806ea9936b",
+  "responsiblePerson": "Pavel Orlov",
+  "depreciation": 5000.00,
+  "acquisitionDate": "2023-03-11",
+  "x": 0.4,
+  "y": 0.4,
+  "width": 0.2,
+  "height": 0.2
+}
