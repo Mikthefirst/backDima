@@ -1,3 +1,4 @@
+import { Report } from './report/entities/report.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
@@ -12,6 +13,7 @@ import { ImageServiceModule } from './image-service/image-service.module';
 import { MbpModule } from './mbp/mbp.module';
 import { Mbp } from './mbp/entities/mbp.entity';
 import { MbpToRoom } from './mbp/entities/mbp-to-room.entity';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { MbpToRoom } from './mbp/entities/mbp-to-room.entity';
       port: 5432,
       password: "246753981",
       username: "postgres",
-      entities: [User, Room, Asset, Mbp, MbpToRoom],
+      entities: [User, Room, Asset, Mbp, MbpToRoom, Report],
       database: "dima-diplom",
       synchronize: true,
       logging: true,
@@ -36,6 +38,7 @@ import { MbpToRoom } from './mbp/entities/mbp-to-room.entity';
     AuthModule,
     ImageServiceModule,
     MbpModule,
+    ReportModule,
   ],
   controllers: [],
   providers: [],
