@@ -1,0 +1,15 @@
+@reqpath = http://localhost:3000
+
+###
+# @name mbpCreate
+POST {{reqpath}}/mbp
+Content-Type: application/json
+
+{
+  "name": "Printer Paper A4",
+  "category": "Office",  // Enum: Office | Educational | Health | Sport | Other
+  "overallQuantity": 500,
+  "minQuantity": 100,
+  "expiryDate": "2025-12-31",
+  "status": "active"
+}

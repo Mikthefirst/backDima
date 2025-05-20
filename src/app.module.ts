@@ -9,6 +9,8 @@ import { Asset } from './assets/entities/asset.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { ImageServiceModule } from './image-service/image-service.module';
+import { MbpModule } from './mbp/mbp.module';
+import { Mbp } from './mbp/entities/mbp.entity';
 
 @Module({
   imports: [
@@ -18,7 +20,7 @@ import { ImageServiceModule } from './image-service/image-service.module';
       port: 5432,
       password: "246753981",
       username: "postgres",
-      entities: [User, Room, Asset],
+      entities: [User, Room, Asset, Mbp],
       database: "dima-diplom",
       synchronize: true,
       logging: true,
@@ -32,6 +34,7 @@ import { ImageServiceModule } from './image-service/image-service.module';
     AssetsModule,
     AuthModule,
     ImageServiceModule,
+    MbpModule,
   ],
   controllers: [],
   providers: [],
