@@ -11,10 +11,6 @@ export class Room {
 
   @Column({ nullable: true })
   owner_id: string;
-
-  @Column({ default: Building.Building1 })
-  building: Building;
-
   @Column()
   width: number;
   @Column()

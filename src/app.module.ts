@@ -11,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ImageServiceModule } from './image-service/image-service.module';
 import { MbpModule } from './mbp/mbp.module';
 import { Mbp } from './mbp/entities/mbp.entity';
+import { MbpToRoom } from './mbp/entities/mbp-to-room.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { Mbp } from './mbp/entities/mbp.entity';
       port: 5432,
       password: "246753981",
       username: "postgres",
-      entities: [User, Room, Asset, Mbp],
+      entities: [User, Room, Asset, Mbp, MbpToRoom],
       database: "dima-diplom",
       synchronize: true,
       logging: true,
