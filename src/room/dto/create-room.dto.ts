@@ -6,7 +6,6 @@ import {
   IsUUID,
   IsNumber,
 } from "class-validator";
-import { Building } from "../enums/building.enum";
 
 export class CreateRoomDto {
   @IsNotEmpty()
@@ -16,10 +15,6 @@ export class CreateRoomDto {
   @IsOptional()
   @IsUUID()
   owner_id?: string;
-
-  @IsNotEmpty()
-  @IsInt()
-  building: Building;
 
   @IsNotEmpty()
   @IsNumber()

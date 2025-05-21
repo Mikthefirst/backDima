@@ -36,8 +36,6 @@ export class User {
   @Column({ nullable: true })
   room_id?: number;
 
-  @Column({ nullable: true })
-  building_id?: number;
 
   @CreateDateColumn({
     type: "timestamp",
@@ -52,4 +50,4 @@ export class User {
   lastLogin: Date;
 }
 
-//username, email, full_name, password, choose role(Teacher,mol ), and not  nessesary fields as room_id, building_id
+//username, email, full_name, password, choose role(Teacher,mol ), and not  nessesary fields as room_id
