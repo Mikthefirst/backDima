@@ -14,6 +14,10 @@ GET  {{reqpath}}/{{rooms}}/
 # @name CreateAssets
 POST {{reqpath}}/{{assets}}/
 
+###
+# 
+GET {{reqpath}}/report
+
 
 ###
 export class CreateAssetDto {

@@ -13,3 +13,7 @@ Content-Type: application/json
   "expiryDate": "2025-12-31",
   "status": "active"
 }
+
+###
+# @name mbpCreate
+GET  {{reqpath}}/mbp

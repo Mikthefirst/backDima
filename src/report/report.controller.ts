@@ -12,6 +12,7 @@ export class ReportController {
 
   @Post()
   create(@Body() dto: CreateReportDto) {
+    console.log('dto', dto);
     return this.reportService.create(dto);
   }
 

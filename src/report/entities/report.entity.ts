@@ -22,8 +22,8 @@ export class Report {
   reason: string;
 
   @Column({ length: 1000 })
-  detailed_desc: string;
-
+  description: string;
+  
   @Column({ length: 200, nullable: true })
   comment: string;
 

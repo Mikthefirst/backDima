@@ -16,7 +16,7 @@ export class CreateReportDto {
 
   @IsString()
   @IsNotEmpty()
-  detailed_desc: string;
+  description: string;
 
   @IsUUID()
   @IsOptional()

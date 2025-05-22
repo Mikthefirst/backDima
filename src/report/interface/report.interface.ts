@@ -8,7 +8,7 @@ import { User } from "src/user/entities/user.entity";
 
 export interface ReportInterface {
   reason: string;
-  detailed_desc: string;
+  description: string;
   comment?: string;
   urgency: Urgency;
   status: ReportStatus;
@@ -20,7 +20,7 @@ export interface ReportInterface {
 
 /*
   reason: string;
-  detailed_desc: string;
+  description: string;
   comment: string;
 
   asset?: Asset;

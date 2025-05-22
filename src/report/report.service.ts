@@ -31,7 +31,7 @@ export class ReportService {
   async create(createReportDto: CreateReportDto) {
     const {
       reason,
-      detailed_desc,
+      description,
       assetId,
       mbpId,
       roomId,
@@ -42,7 +42,7 @@ export class ReportService {
 
     const reportData: ReportInterface = {
       reason,
-      detailed_desc,
+      description,
       urgency,
       status,
       createdBy: await this.userRepo.findOneByOrFail({ id: createdById }),
@@ -82,6 +82,8 @@ export class ReportService {
   }
 
   async getAll(): Promise<Report[]> {
-    return this.reportRepo.find({});
+    return this.reportRepo.find({
+      relations: ["asset", "room", "createdBy"],
+    });
   }
 }
