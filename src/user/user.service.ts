@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -9,6 +9,8 @@ import {
   ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { ChangePasswordDto } from './dto/change-pass.dto';
+import { Roles } from 'src/auth/decorators/roles.decorator';
 
 
 @Injectable()
@@ -36,15 +38,15 @@ export class UserService {
 
   async findAll(role?: Role): Promise<Omit<User, "password">[] | undefined> {
     console.log("Get all users:", role);
-    
-     const users = role
-       ? await this.userRepository.find({ where: { role } })
-       : await this.userRepository.find();
 
-     return users.map((user) => {
-       const { password, ...userWithoutPassword } = user;
-       return userWithoutPassword as Omit<User, "password">;
-     });
+    const users = role
+      ? await this.userRepository.find({ where: { role } })
+      : await this.userRepository.find();
+
+    return users.map((user) => {
+      const { password, ...userWithoutPassword } = user;
+      return userWithoutPassword as Omit<User, "password">;
+    });
   }
 
   findOne(id: string): Promise<User | undefined> {
@@ -63,5 +65,25 @@ export class UserService {
 
   remove(id: string) {
     return this.userRepository.delete(id);
+  }
+
+  async changePassword(id: string, email, changePasswordDto: ChangePasswordDto) {
+    const { currentPassword, newPassword } = changePasswordDto;
+
+    const userCheck = await this.userRepository.findOne({ where: { email } });
+
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException("User not found");
+    }
+  if (user.id !== userCheck.id&& user.role!=Role.ADMIN) {
+      throw new UnauthorizedException('Not your profile');
+    }
+    if (currentPassword !== user.password) {
+      throw new UnauthorizedException("User not found");
+    }
+    user.password = newPassword;
+
+    return this.userRepository.save(user);
   }
 }

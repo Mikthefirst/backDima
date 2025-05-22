@@ -10,6 +10,9 @@ import {
   Query,
   UseGuards,
   UseInterceptors,
+  Put,
+  Req,
+  ForbiddenException,
 } from "@nestjs/common";
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -21,6 +24,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from "src/auth/guards/role.guard";
 import { Observable } from 'rxjs';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ChangePasswordDto } from './dto/change-pass.dto';
 
 
 @Controller("user")
@@ -51,14 +55,28 @@ export class UserController {
     return this.userService.findOne(id);
   }
   //http://localhost:3000/user/5de94ab1-6da1-4221-b813-74584fec1b32
-  @Patch(":id")
+  @UseGuards(JwtAuthGuard)
+  @Put(":id")
   update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post("change-password/:id")
+  async changePassword(
+    @Param("id") id: string,
+    @Body() changePasswordDto: ChangePasswordDto,
+    @Req() req: any
+  ) {
+    console.log('pass change req was', req.user);
+    const user = req.user;
+
+    return this.userService.changePassword(id, req.user.email, changePasswordDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.userService.remove(id);
   }
-
 }
