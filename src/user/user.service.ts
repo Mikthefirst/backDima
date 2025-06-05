@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -67,7 +67,11 @@ export class UserService {
     return this.userRepository.delete(id);
   }
 
-  async changePassword(id: string, email, changePasswordDto: ChangePasswordDto) {
+  async changePassword(
+    id: string,
+    email,
+    changePasswordDto: ChangePasswordDto
+  ) {
     const { currentPassword, newPassword } = changePasswordDto;
 
     const userCheck = await this.userRepository.findOne({ where: { email } });
@@ -76,8 +80,8 @@ export class UserService {
     if (!user) {
       throw new NotFoundException("User not found");
     }
-  if (user.id !== userCheck.id&& user.role!=Role.ADMIN) {
-      throw new UnauthorizedException('Not your profile');
+    if (user.id !== userCheck.id && user.role != Role.ADMIN) {
+      throw new UnauthorizedException("Not your profile");
     }
     if (currentPassword !== user.password) {
       throw new UnauthorizedException("User not found");
@@ -85,5 +89,15 @@ export class UserService {
     user.password = newPassword;
 
     return this.userRepository.save(user);
+  }
+
+  async findAllNonAdmins(): Promise<Omit<User, "password">[]> {
+    const users = await this.userRepository.find({
+      where: {
+        role: Not(Role.ADMIN),
+      },
+    });
+
+    return users.map(({ password, ...rest }) => rest);
   }
 }

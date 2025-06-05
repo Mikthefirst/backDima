@@ -26,7 +26,6 @@ import { ReportModule } from './report/report.module';
       entities: [User, Room, Asset, Mbp, MbpToRoom, Report],
       database: "dima-diplom",
       synchronize: true,
-      logging: true,
     }),
     ConfigModule.forRoot({
       isGlobal: true, // makes ConfigService available globally

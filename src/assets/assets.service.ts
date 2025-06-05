@@ -17,18 +17,19 @@ export class AssetsService {
     private readonly assetRepository: Repository<Asset>
   ) {}
 
-  async create(createAssetDto: CreateAssetDto) {
+  async create(data: any) {
     try {
-      const asset = this.assetRepository.create(createAssetDto);
+      const asset = this.assetRepository.create(data);
       return await this.assetRepository.save(asset);
     } catch (error) {
-      console.error("Error creating asset: ", error);
+      console.error("Error creating asset:", error);
       throw new InternalServerErrorException("Something went wrong");
     }
   }
 
-  async findAll() {
-    return await this.assetRepository.find();
+  async getAssetsWithRooms() {
+    const assets = await this.assetRepository.find({ relations: ["room"] });
+    return assets;
   }
 
   async findOne(inventory_number: number) {

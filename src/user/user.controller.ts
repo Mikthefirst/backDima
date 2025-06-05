@@ -49,6 +49,13 @@ export class UserController {
   findAll(@Query("role") role?: Role): Promise<Omit<User, "password">[]> {
     return this.userService.findAll(role);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get("non-admins")
+  findNonAdminUsers(): Promise<Omit<User, "password">[]> {
+    console.log('non-admin');
+    return this.userService.findAllNonAdmins();
+  }
   //http://localhost:3000/user/5de94ab1-6da1-4221-b813-74584fec1b32
   @Get(":id")
   findOne(@Param("id") id: string): Promise<User> {
@@ -68,10 +75,14 @@ export class UserController {
     @Body() changePasswordDto: ChangePasswordDto,
     @Req() req: any
   ) {
-    console.log('pass change req was', req.user);
+    console.log("pass change req was", req.user);
     const user = req.user;
 
-    return this.userService.changePassword(id, req.user.email, changePasswordDto);
+    return this.userService.changePassword(
+      id,
+      req.user.email,
+      changePasswordDto
+    );
   }
 
   @UseGuards(JwtAuthGuard)

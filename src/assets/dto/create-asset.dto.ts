@@ -15,15 +15,18 @@ export class CreateAssetDto {
   @IsNotEmpty()
   room_id: string;
 
-  @IsString()
-  @IsOptional()
-  responsiblePerson?: string;
-
   @IsNumber()
   depreciation: number;
 
   @IsDateString()
-  acquisitionDate: string; 
+  acquisitionDate: string;
+
+  @IsNumber()
+  value: number;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
 
   @IsNumber()
   @IsOptional()

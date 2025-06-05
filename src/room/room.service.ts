@@ -39,7 +39,8 @@ export class RoomService {
     }
 
     const assets = await this.assetsRepository.find({
-      where: { room_id: room.id },
+      where: { room: { id: room.id } },
+      relations: ["room"], 
     });
 
     return assets;

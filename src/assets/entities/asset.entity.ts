@@ -1,4 +1,5 @@
-import { PrimaryGeneratedColumn, Column, Entity } from "typeorm";
+import { Room } from "src/room/entities/room.entity";
+import { PrimaryGeneratedColumn, Column, Entity, ManyToOne, JoinColumn } from "typeorm";
 
 @Entity({ name: "assets" })
 export class Asset {
@@ -14,11 +15,9 @@ export class Asset {
   @Column({ nullable: true })
   image_url?: string;
 
-  @Column()
-  room_id: string;
-
-  @Column({ name: "MOL", nullable: true })
-  responsiblePerson: string; // Материально ответственное лицо
+  @ManyToOne(() => Room)
+  @JoinColumn({ name: "Room" }) // указываем имя столбца в таблице assets
+  room: Room;
 
   @Column({
     name: "Depreciation", //амортизация
