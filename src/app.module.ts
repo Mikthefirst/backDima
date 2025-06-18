@@ -26,6 +26,12 @@ import { ReportModule } from './report/report.module';
       entities: [User, Room, Asset, Mbp, MbpToRoom, Report],
       database: "dima-diplom",
       synchronize: true,
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
     }),
     ConfigModule.forRoot({
       isGlobal: true, // makes ConfigService available globally
@@ -43,3 +49,15 @@ import { ReportModule } from './report/report.module';
   providers: [],
 })
 export class AppModule {}
+
+
+/*
+Нужно добавлять это для deploy на render в TypeOrmModule.forRoot({
+
+  ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
+ */

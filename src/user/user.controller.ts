@@ -56,12 +56,10 @@ export class UserController {
     console.log('non-admin');
     return this.userService.findAllNonAdmins();
   }
-  //http://localhost:3000/user/5de94ab1-6da1-4221-b813-74584fec1b32
   @Get(":id")
   findOne(@Param("id") id: string): Promise<User> {
     return this.userService.findOne(id);
   }
-  //http://localhost:3000/user/5de94ab1-6da1-4221-b813-74584fec1b32
   @UseGuards(JwtAuthGuard)
   @Put(":id")
   update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {

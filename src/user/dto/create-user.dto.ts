@@ -50,8 +50,4 @@ export class CreateUserDto {
   @IsInt()
   @IsOptional()
   room_id?: number;
-
-  @IsInt()
-  @IsOptional()
-  building_id?: number;
 }

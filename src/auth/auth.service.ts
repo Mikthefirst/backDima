@@ -3,6 +3,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserService } from './../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { IUser } from 'src/types/types';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -21,11 +22,35 @@ export class AuthService {
   }
 
   async login(user: IUser) {
-    const payload = { email: user.email, sub: user.id, role: user.role };
+    console.log("login:", user);
+    const payload = { email: user.email, id: user.id, role: user.role };
     return {
       email: user.email,
       id: user.id,
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async register(createUserDto: CreateUserDto): Promise<IUser> {
+    try {
+      const existingUser = await this.usersService.findOneByEmail(
+        createUserDto.email
+      );
+      if (existingUser) {
+        throw new BadRequestException("Email already in use");
+      }
+
+      const createdUser = await this.usersService.create(createUserDto);
+
+      const userToCreate: IUser = {
+        id: createdUser.id,
+        fullname: createdUser.full_name,
+        email: createdUser.email,
+        role: createdUser.role,
+      };
+      return userToCreate;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
