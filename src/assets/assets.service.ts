@@ -8,18 +8,27 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from "@nestjs/common";
+import { Room } from 'src/room/entities/room.entity';
 
 
 @Injectable()
 export class AssetsService {
   constructor(
     @InjectRepository(Asset)
-    private readonly assetRepository: Repository<Asset>
+    private readonly assetRepository: Repository<Asset>,
+    @InjectRepository(Room)
+    private readonly roomRepository: Repository<Room>
   ) {}
 
-  async create(data: any) {
+  async create(data: CreateAssetDto) {
     try {
-      const asset = this.assetRepository.create(data);
+      const room = await this.roomRepository.findOne({
+        where: { id: data.room_id },
+      });
+      if (!room)
+        throw new NotFoundException(`Room with id ${data.room_id} not found`);
+
+      const asset = this.assetRepository.create({ ...data, room });
       return await this.assetRepository.save(asset);
     } catch (error) {
       console.error("Error creating asset:", error);
@@ -32,27 +41,36 @@ export class AssetsService {
     return assets;
   }
 
-  async findOne(inventory_number: number) {
-    const asset = await this.assetRepository.findOne({
-      where: { inventory_number },
-    });
-    if (!asset) {
-      throw new NotFoundException(
-        `Asset with id ${inventory_number} not found`
-      );
-    }
-    return asset;
-  }
-
   async getNumberOfAssets() {
     const [asset, assetsCount] = await this.assetRepository.findAndCount();
     return assetsCount;
   }
 
   async update(id: string, updateAssetDto: UpdateAssetDto) {
-    // <-- id теперь string
-    await this.assetRepository.update(id, updateAssetDto);
-    return this.assetRepository.findOne({ where: { id } }); // <-- Теперь id передается корректно
+    const asset = await this.assetRepository.findOne({ where: { id } });
+    if (!asset) {
+      throw new NotFoundException(`Asset with id ${id} not found`);
+    }
+
+    // Обновим room, если указан
+    if (updateAssetDto.room_id) {
+      const room = await this.roomRepository.findOne({
+        where: { id: updateAssetDto.room_id },
+      });
+      if (!room) {
+        throw new NotFoundException(
+          `Room with id ${updateAssetDto.room_id} not found`
+        );
+      }
+      asset.room = room;
+    }
+
+    // Удаляем room_id из dto, чтобы избежать ошибки
+    const { room_id, ...rest } = updateAssetDto;
+
+    Object.assign(asset, rest);
+
+    return await this.assetRepository.save(asset);
   }
 
   async remove(id: string) {

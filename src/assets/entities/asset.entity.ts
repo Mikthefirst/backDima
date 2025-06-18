@@ -6,18 +6,21 @@ export class Asset {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @PrimaryGeneratedColumn("increment")
-  inventory_number: number;
-
   @Column()
   name: string;
-
-  @Column({ nullable: true })
-  image_url?: string;
 
   @ManyToOne(() => Room)
   @JoinColumn({ name: "Room" }) // указываем имя столбца в таблице assets
   room: Room;
+
+  
+  @Column({
+    type: "decimal",
+    precision: 12,
+    scale: 2,
+    nullable: false,
+  })
+  value: number;
 
   @Column({
     name: "Depreciation", //амортизация
@@ -48,14 +51,3 @@ export class Asset {
   @Column({ type: "decimal", precision: 5, scale: 2, default: 0.1 })
   height: number;
 }
-
-/* 
-  @Column()
-  width: number;
-  @Column()
-  height: number;
-  @Column()
-  x: number;
-  @Column()
-  y: number;
-*/
