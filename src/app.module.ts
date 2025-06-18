@@ -14,28 +14,21 @@ import { MbpModule } from './mbp/mbp.module';
 import { Mbp } from './mbp/entities/mbp.entity';
 import { MbpToRoom } from './mbp/entities/mbp-to-room.entity';
 import { ReportModule } from './report/report.module';
-
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: "postgres",
-      host: "localhost",
-      port: 5432,
-      password: "246753981",
-      username: "postgres",
-      entities: [User, Room, Asset, Mbp, MbpToRoom, Report],
-      database: "dima-diplom",
-      synchronize: true,
-      ssl: true,
-      extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      },
-    }),
     ConfigModule.forRoot({
       isGlobal: true, // makes ConfigService available globally
-      envFilePath: ".env", // explicitly specify the path
+      expandVariables: true,
+    }),
+    TypeOrmModule.forRoot({
+      type: "postgres",
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      password: process.env.DB_PASS,
+      username: process.env.DB_USERNAME,
+      entities: [User, Room, Asset, Mbp, MbpToRoom, Report],
+      database: process.env.DB_DATABASE,
+      synchronize: true,
     }),
     UserModule,
     RoomModule,
