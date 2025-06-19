@@ -9,13 +9,13 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: "http://localhost:5173",
+    origin: `${process.env.FRONT_HOST}`,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   });
 
-  await app.listen(port);
+  await app.listen(port, "0.0.0.0");
   console.log('server is listening on port: ', port)
 }
 bootstrap();
