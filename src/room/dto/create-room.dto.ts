@@ -31,8 +31,4 @@ export class CreateRoomDto {
   @IsNotEmpty()
   @IsNumber()
   y: number;
-
-  @IsOptional()
-  @IsString()
-  image_url: string;
 }

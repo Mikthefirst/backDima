@@ -19,6 +19,37 @@ export class UserService {
     @InjectRepository(User) private readonly userRepository: Repository<User>
   ) {}
 
+  async onModuleInit() {
+    await this.initAdminIfNotExists();
+  }
+
+  private async initAdminIfNotExists() {
+    const existingAdmin = await this.userRepository.findOne({
+      where: { email: "admin@gmail.com" },
+    });
+
+    if (existingAdmin) {
+      console.log("Admin already exists, skipping creation.");
+      return;
+    }
+
+    const adminUser: CreateUserDto = {
+      username: "admin",
+      full_name: "Кулик Дмитрий Валерьевич",
+      email: "admin@gmail.com",
+      password: "admin",
+      role: Role.ADMIN,
+      avatar: null,
+    };
+
+    try {
+      await this.create(adminUser);
+      console.log("Admin user created.");
+    } catch (error) {
+      console.error("Failed to create admin user:", error);
+    }
+  }
+
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       console.log("Post req dto: ", createUserDto);

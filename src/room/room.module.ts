@@ -10,7 +10,10 @@ import { Asset } from 'src/assets/entities/asset.entity';
 @Module({
   controllers: [RoomController],
   providers: [RoomService],
-  imports: [TypeOrmModule.forFeature([Room]),
-  TypeOrmModule.forFeature([Asset]),]
+  imports: [
+    TypeOrmModule.forFeature([Room]),
+    TypeOrmModule.forFeature([Asset]),
+  ],
+  exports: [RoomService],
 })
 export class RoomModule {}
