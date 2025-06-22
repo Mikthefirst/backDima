@@ -35,7 +35,7 @@ export class UserService {
 
     const adminUser: CreateUserDto = {
       username: "admin",
-      full_name: "Кулик Дмитрий Валерьевич",
+      full_name: "Кулик Дмитрий Викторович",
       email: "admin@gmail.com",
       password: "admin",
       role: Role.ADMIN,
