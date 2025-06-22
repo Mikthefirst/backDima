@@ -24,15 +24,6 @@ export class UserService {
   }
 
   private async initAdminIfNotExists() {
-    const existingAdmin = await this.userRepository.findOne({
-      where: { email: "admin@gmail.com" },
-    });
-
-    if (existingAdmin) {
-      console.log("Admin already exists, skipping creation.");
-      return;
-    }
-
     const adminUser: CreateUserDto = {
       username: "admin",
       full_name: "Кулик Дмитрий Викторович",
@@ -41,6 +32,20 @@ export class UserService {
       role: Role.ADMIN,
       avatar: null,
     };
+    const existingAdmin = await this.userRepository.findOne({
+      where: { email: "admin@gmail.com" },
+    });
+
+    if (existingAdmin) {
+      console.log("Admin already exists, changing.");
+      Object.assign(existingAdmin, CreateUserDto);
+      const user = await this.userRepository.save(existingAdmin);
+      console.log("final user:");
+      return;
+    }
+
+
+
 
     try {
       await this.create(adminUser);
