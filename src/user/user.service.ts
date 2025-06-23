@@ -44,9 +44,6 @@ export class UserService {
       return;
     }
 
-
-
-
     try {
       await this.create(adminUser);
       console.log("Admin user created.");
@@ -131,6 +128,16 @@ export class UserService {
     const users = await this.userRepository.find({
       where: {
         role: Not(Role.ADMIN),
+      },
+    });
+
+    return users.map(({ password, ...rest }) => rest);
+  }
+
+  async findUser(email:string): Promise<Omit<User, "password">[]> {
+    const users = await this.userRepository.find({
+      where: {
+        email:email,
       },
     });
 

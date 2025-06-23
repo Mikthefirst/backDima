@@ -29,12 +29,7 @@ import { ReportModule } from './report/report.module';
       entities: [User, Room, Asset, Mbp, MbpToRoom, Report],
       database: process.env.DB_DATABASE,
       synchronize: true,
-      ssl: true,
-      extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      },
+     
     }),
     UserModule,
     RoomModule,

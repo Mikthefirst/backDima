@@ -9,6 +9,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  Request,
   UseInterceptors,
   Put,
   Req,
@@ -25,6 +26,7 @@ import { RolesGuard } from "src/auth/guards/role.guard";
 import { Observable } from 'rxjs';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ChangePasswordDto } from './dto/change-pass.dto';
+import { IUser } from 'src/types/types';
 
 
 @Controller("user")
@@ -43,6 +45,13 @@ export class UserController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get("get-data")
+  async findUser( @Request() req): Promise<Omit<User, "password">[]> {
+    const user: IUser = req.user;
+    return this.userService.findUser(user.email);
+  }
+
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   @Get()
@@ -53,7 +62,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get("non-admins")
   findNonAdminUsers(): Promise<Omit<User, "password">[]> {
-    console.log('non-admin');
+    console.log("non-admin");
     return this.userService.findAllNonAdmins();
   }
   @Get(":id")
