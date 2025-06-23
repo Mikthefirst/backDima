@@ -17,7 +17,6 @@ export class AssetsController {
     return this.assetsService.create({ ...createAssetDto });
   }
 
-
   @Get()
   findAll() {
     console.log("req all assets: ");
@@ -29,10 +28,15 @@ export class AssetsController {
     return this.assetsService.getNumberOfAssets();
   }
 
-
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateAssetDto: UpdateAssetDto) {
     return this.assetsService.update(id, updateAssetDto);
+  }
+
+  @Get("count")
+  sendAssetNum(): Promise<number> {
+    const count = this.assetsService.countAsset();
+    return count;
   }
 
   @Delete(":id")

@@ -25,6 +25,12 @@ export class RoomController {
   findAll(): Promise<Room[]> {
     return this.roomService.findAll();
   }
+  @Get('count')
+  sendRoomNum():Promise<number> {
+    const count = this.roomService.countRoom();
+    return count;
+  }
+  
   @Get('roomWithAssets/:id')
   sendRoomWithAssets(@Param('id') id: string) {
     const roomsAndassets_json = this.roomService.findRoomWithRelatedAssets(id);

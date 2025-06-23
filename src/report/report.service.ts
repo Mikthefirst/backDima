@@ -58,8 +58,7 @@ export class ReportService {
       if (mbpId) {
         reportData.mbp = await this.mbpRepo.findOneByOrFail({ id: mbpId });
       }
-    }
-   else throw new BadRequestException("need to specify mbp or Asset")
+    } else throw new BadRequestException("need to specify mbp or Asset");
 
     if (roomId) {
       reportData.room = await this.roomRepo.findOneByOrFail({ id: roomId });
@@ -78,12 +77,14 @@ export class ReportService {
     } catch (error) {
       console.log(error);
     }
-   
   }
 
   async getAll(): Promise<Report[]> {
     return this.reportRepo.find({
       relations: ["asset", "room", "createdBy"],
     });
+  }
+  async count(): Promise<number> {
+    return await this.reportRepo.count();
   }
 }

@@ -39,4 +39,11 @@ export class MbpService {
     const mbp = await this.findOne(id);
     await this.mbpRepository.remove(mbp);
   }
+
+  async count(): Promise<number> {
+    return await this.mbpRepository
+      .createQueryBuilder("mbp")
+      .where("mbp.overallQuantity < mbp.minQuantity")
+      .getCount();
+  }
 }

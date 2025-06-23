@@ -123,4 +123,8 @@ export class RoomService {
       console.error("Failed to initialize rooms:", error);
     }
   }
+
+  async countRoom(): Promise<number> {
+    return await this.roomRepository.count();
+  }
 }

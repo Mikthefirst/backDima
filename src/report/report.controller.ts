@@ -12,7 +12,7 @@ export class ReportController {
 
   @Post()
   create(@Body() dto: CreateReportDto) {
-    console.log('dto', dto);
+    console.log("dto", dto);
     return this.reportService.create(dto);
   }
 
@@ -24,5 +24,11 @@ export class ReportController {
   @Get()
   findAll() {
     return this.reportService.getAll();
+  }
+
+  @Get("count")
+  count(): Promise<number> {
+    const count = this.reportService.count();
+    return count;
   }
 }

@@ -79,4 +79,8 @@ export class AssetsService {
     await this.assetRepository.remove(asset);
     return { message: `Asset with id ${id} deleted successfully` };
   }
+
+  async countAsset(): Promise<number> {
+    return await this.assetRepository.count();
+  }
 }

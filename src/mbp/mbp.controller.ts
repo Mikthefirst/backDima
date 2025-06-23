@@ -22,6 +22,12 @@ export class MbpController {
     return this.mbpService.findAll();
   }
 
+  @Get("count")
+  count(): Promise<number> {
+    const count = this.mbpService.count();
+    return count;
+  }
+
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.mbpService.findOne(id);
